@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:prueba_01/screens/Ejercicio1.dart';
+import 'package:prueba_01/screens/Ejercicio2.dart';
 
 void main() {
   runApp(Prueba01());
@@ -26,13 +27,39 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  int indice = 0;
+
   @override
   Widget build(BuildContext context) {
+    List<Widget> screens = [
+      Body(context),
+      const Ejercicio1(),
+      const Ejercicio2(),
+    ];
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Prueba 01'),
       ),
-      body: Body(context),
+      body: screens[indice],
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: indice,
+        onTap: (valor) {
+          setState(() {
+            indice = valor;
+          });
+        },
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: "Inicio",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.no_drinks),
+            label: "Ejercicio 01",
+          ),
+        ],
+      ),
     );
   }
 }
@@ -48,8 +75,12 @@ Widget Body(context) {
       child: (Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          const Text('Nombre: Fernando Mallitaxi' ,style: TextStyle(fontSize: 20.0, color: Colors.white),),
-          const Text('Usuario Git: fernanado2021' ,style: TextStyle(fontSize: 20.0, color: Colors.white)),
+          const Text(
+            'Nombre: Fernando Mallitaxi',
+            style: TextStyle(fontSize: 20.0, color: Colors.white),
+          ),
+          const Text('Usuario Git: fernanado2021',
+              style: TextStyle(fontSize: 20.0, color: Colors.white)),
           Boton1(context)
         ],
       )),
@@ -65,7 +96,7 @@ Widget Boton1(BuildContext context) {
         builder: (BuildContext context) {
           return AlertDialog(
             title: const Text("Confirmación"),
-            content: const Text("¿Estás seguro que deseas ir al Ejercicio 1?"),
+            content: const Text("¿Estás seguro que deseas ir al Ejercicio 2?"),
             actions: [
               TextButton(
                 onPressed: () {
@@ -78,7 +109,7 @@ Widget Boton1(BuildContext context) {
                   Navigator.of(context).pop();
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => Ejercicio1()),
+                    MaterialPageRoute(builder: (context) => Ejercicio2()),
                   );
                 },
                 child: const Text("Aceptar"),
@@ -88,6 +119,9 @@ Widget Boton1(BuildContext context) {
         },
       );
     },
-    child: const Text("Ir a Ejercicio 1" , style: TextStyle(fontSize: 15.0, color: Colors.black),),
+    child: const Text(
+      "Ir a Ejercicio 2",
+      style: TextStyle(fontSize: 15.0, color: Colors.black),
+    ),
   );
 }

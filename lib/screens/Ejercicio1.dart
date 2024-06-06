@@ -12,6 +12,7 @@ class Ejercicio1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Ejercicio 1',
       home: Home(),
     );
